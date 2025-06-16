@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>九九乘法表產生器</title>
+    <style>
+        :root {
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --primary-color: #2563eb;
+            --accent-color: #1d4ed8;
+            --text-color: #111827;
+            --input-border: #d1d5db;
+            --table-bg: #f3f4f6;
+            --table-border: #e5e7eb;
+        }
+
+        body.dark {
+            --bg-color: #1f2937;
+            --card-bg: #374151;
+            --primary-color: #60a5fa;
+            --accent-color: #3b82f6;
+            --text-color: #000000;
+            --input-border: #4b5563;
+            --table-bg: #4b5563;
+            --table-border: #6b7280;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 750px;
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+            padding: 40px 30px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        input[type="number"] {
+            padding: 12px;
+            font-size: 1rem;
+            width: 220px;
+            border: 2px solid var(--input-border);
+            border-radius: 8px;
+            background: white;
+            color: var(--text-color);
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+
+        #tableOutput {
+            margin-top: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--table-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        td {
+            border: 1px solid var(--table-border);
+            padding: 12px;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        .error {
+            color: #f87171;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .theme-toggle {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="theme-toggle">
+            <button onclick="toggleTheme()">🌗 切換主題</button>
+        </div>
+        <h1>九九乘法表產生器</h1>
+        <div class="form-group">
+            <label for="numberInput">輸入一個正整數：</label>
+            <input type="number" id="numberInput" min="1" max="20" />
+            <div class="btn-group">
+                <button onclick="generateTable()">產生乘法表</button>
+                <button onclick="clearTable()">清除</button>
+            </div>
+        </div>
+        <div id="tableOutput"></div>
+    </div>
+
+    <script>
+        function generateTable() {
+            const n = parseInt(document.getElementById("numberInput").value);
+            const output = document.getElementById("tableOutput");
+
+            if (isNaN(n) || n <= 0 || n > 20) {
+                output.innerHTML = `<p class="error">請輸入 1 到 20 的正整數！</p>`;
+                return;
+            }
+
+            let tableHTML = "<table>";
+            for (let i = 1; i <= n; i++) {
+                tableHTML += "<tr>";
+                for (let j = 1; j <= n; j++) {
+                    tableHTML += `<td>${i} × ${j} = ${i * j}</td>`;
+                }
+                tableHTML += "</tr>";
+            }
+            tableHTML += "</table>";
+            output.innerHTML = tableHTML;
+        }
+
+        function clearTable() {
+            document.getElementById("numberInput").value = "";
+            document.getElementById("tableOutput").innerHTML = "";
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+            const isDark = document.body.classList.contains("dark");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+        }
+
+        // 自動載入主題與聚焦
+        window.onload = function () {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme === "dark") {
+                document.body.classList.add("dark");
+            }
+            document.getElementById("numberInput").focus();
+        };
+    </script>
+</body>
+
+</html>

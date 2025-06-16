@@ -1,0 +1,90 @@
+body {
+    background: linear-gradient(135deg, #fdf6e3, #fae1dd);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 30px;
+    border-radius: 20px;
+    border: 2px dashed #5b9bd5;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.game-area {
+    width: 90%;
+    max-width: 900px;
+    border-radius: 12px;
+    background-color: #ffffffd9;
+    padding: 30px;
+    margin: 10px auto;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.game-area:hover {
+    transform: translateY(-3px);
+}
+
+#game-info {
+    background-color: #deb887;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #3e2c1c;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#controls {
+    background-color: #a9a9a9;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#game-container {
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    min-height: 250px;
+}
+
+.tube {
+    width: 60px;
+    height: 220px;
+    background-color: #fefefe;
+    border: 2px solid #444;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.tube:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.water {
+    width: 100%;
+    transition: height 0.3s;
+}
+
+.tube.selected {
+    border-color: red;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    transform: translateY(-15px);
+}
